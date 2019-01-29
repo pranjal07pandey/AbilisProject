@@ -1,0 +1,53 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+    {% if added %}
+                <script>alert("Document Edited")</script>
+            {% endif %}
+
+<div id="page-content-wrapper">
+    <div class="section-wrapper">
+        <h3 class="text-center"> Document List</h3>
+    </div>
+    <div class="section-wrapper">
+        <table class="table table-responsive">
+            <thead>
+            <tr>
+
+                <th>Title</th>
+                <th>Date</th>
+                <th>Diabled Category</th>
+                <th>Document Category</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+
+                {% for documents in document %}
+
+                    <tbody>
+                    <tr>
+                        <td>{{ documents.title }}</td>
+                        <td>{{ documents.date }}</td>
+                        <td>{{ documents.category }}</td>
+                        <td>{{ documents.document }}</td>
+                        <td>
+
+                            <a class="dropdown-item" href="{% url 'document_edit' pk=documents.pk %}">Edit</a>
+                            <a class="dropdown-item" href="{% url 'document_delete' pk=documents.pk %}" onclick="return confirm('Are you sure?')">Delete</a>
+
+                        </td>
+                    </tr>
+                    </tbody>
+
+                {% endfor %}
+
+        </table>
+
+</div>
+</div>
+
+{% endblock %}
+
+
