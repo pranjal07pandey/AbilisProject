@@ -1,5 +1,4 @@
 
-
 <html>
 <head>
     <title>Abilis</title>
@@ -14,7 +13,7 @@
     <script src="{% static 'style/js/bootstrap.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'style/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'style/css/sidebar.css' %}">
-
+<script src="https://cdn.ckeditor.com/4.11.1/standard/ckeditor.js"></script>
 
 <body>
 
@@ -55,7 +54,7 @@
             <ul class="sidebar-nav-default">
 
                 <li class="sub-menu"><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                <li class="sub-menu"><a href="#"><i class="fa fa-list"></i> User List</a></li>
+                <li class="sub-menu"><a href="{% url 'userlist' %}"><i class="fa fa-list"></i> User List</a></li>
 
                 <li  style="">
                     <a href="#" class="sub-menu" id="report">

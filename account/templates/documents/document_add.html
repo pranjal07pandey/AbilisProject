@@ -1,5 +1,7 @@
 {% extends 'home.html' %}
 
+{% load staticfiles %}
+
 {% block content %}
 
       {% if added %}
@@ -12,7 +14,7 @@
         <h3 class="text-center">Add Document</h3>
     </div>
     <div class="section-wrapper form-bg">
-        <form method="POST"  enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
+        <form method="POST" name="form" enctype="multipart/form-data" class="form-horizontal" >{% csrf_token %}
 
             <div class = "form-group">
                 <label for = "id_title" class = "control-label col-sm-2 ">Title*</label>
@@ -32,39 +34,112 @@
                     <input type="date" id="id_date" name="date" placeholder="Date" required>
                 </div>
             </div>
-            <div class = "form-group">
-                <label for = "id_category" class = "control-label col-sm-2 ">Disabled Category*</label>
-                <div class = "col-sm-4">
-                    <select  class = "form-control" name = "category" id="id_category" required>
-                        <option value="Visually Impaired">Visually Impaired</option>
-                        <option value="Hearing Impaired">Hearing Impaired</option>
-                        <option value="No Leg">No Leg</option>
+
+{#            <div class="form-group">#}
+{#                    <label for="id_category" class="control-label col-sm-2 ">Disabled Category*</label>#}
+{#                    <div class="col-sm-4">#}
+{#                        <select class="form-control" name="category" id="id_category" required>#}
+{#                            <option value="Visually Impaired">Visually Impaired</option>#}
+{#                            <option value="Hearing Impaired">Hearing Impaired</option>#}
+{#                            <option value="No Leg">No Leg</option>#}
+{#                        </select>#}
+{#                    </div>#}
+{#                </div>#}
+
+            <div class="form-group">
+                <label for="id_new_category" class="control-label col-sm-2 ">Disabled Category*</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="category" id="id_new_category" required>
+                        {% for add_category in add_category %}
+
+
+                            <option value="{{ add_category.new_category }}">{{ add_category.new_category }}</option>
+
+
+                        {% endfor %}
                     </select>
+
                 </div>
+
+
+           <div class ="col-sm-4">
+                    <a class="fa fa-fw fa-plus"  href="{% url 'add_category' %}">Category</a>
+                          <div class ="col-sm-4">
+                                <a class="fa fa-list"  href="{% url 'list_category'  %}">list category</a>
+                          </div>
+
+
+           </div>
             </div>
+
+
+
       <div class = "form-group">
-                <label for = "id_document" class = "control-label col-sm-2 ">Document*</label>
+                <label for = "id_doc_category" class = "control-label col-sm-2 ">Document Category*</label>
           <div class = "col-sm-4">
-                    <select  class = "form-control" name = "document" id="id_document" required>
-                        <option value="Education">Education</option>
-                        <option value="Government Works">Government Works</option>
-                        <option value="Others">Others</option>
+                    <select  class = "form-control" name = "doc_category" id="id_doc_category" required>
+
+                        {% for add_doc_category in add_doc_category %}
+
+
+                            <option value="{{ add_doc_category.doc_category }}">{{ add_doc_category.doc_category }}</option>
+
+
+                        {% endfor %}
+
                     </select>
                 </div>
+
+       <div class ="col-sm-4">
+                    <a class="fa fa-fw fa-plus"  href="{% url 'add_document_category' %}">Category</a>
+                          <div class ="col-sm-4">
+                                <a class="fa fa-list"  href="{% url 'list_document_category'  %}">list category</a>
+                          </div>
+
+
+           </div>
+            </div>
+
+        <div class = "form-group">
+                <label for = "id_description" class = "control-label col-sm-2 ">Description*</label>
+                <div class = "col-sm-4 no-outline">
+                    <input type="text" id="id_description" name="description" placeholder="Description Here" required  style="width: 100%">
+                </div>
+        </div>
+
+          <div class = "form-group">
+                <label for = "id_information" class = "control-label col-sm-2 ">Information*</label>
+                <div class = "col-sm-6 no-outline">
+                <textarea name="information" class="ckeditor" ></textarea>
+                </div>
+        </div>
+
+
+
+
+        <div class = "form-group">
 
                 <div class = "col-sm-2 no-outline">
-                    <input type="file" id="id_document" name="document" placeholder="docs"  required>
+                    <input type="file" accept="application/pdf" id="id_doc_category" name="document" placeholder="docs">
                 </div>
             </div>
 
-
             <div class = "col-sm-8">
-                <input type="submit" class="btn submit-btn" value="Add">
+                <input type="submit" onclick="return validateForm()" class="btn submit-btn" value="Add">
             </div>
 
         </form>
     </div>
 </div>
+    <script>
+
+        function validateForm() {
+            var x = document.forms["form"]["document"].value =="" || document.getElementsByName("information").value=="";
+            if (!x) {
+                alert("Both information and document cannot be empty");
+                return false;
+            }
+        }</script>
 {% endblock %}
 
 

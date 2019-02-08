@@ -30,6 +30,12 @@ urlpatterns = [
     path('document/',include('account.urls')),
 
     path('dashboard/',include('account.urls')),
+    path('userlist/', include('account.urls')),
+
+    path('category/', include('account.urls')),
+
+    path('doc_category/', include('account.urls')),
+
 
 
 
