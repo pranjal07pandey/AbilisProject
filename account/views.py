@@ -4,9 +4,10 @@ from .forms import DocumentationForm, CategoryForm, DocumentNewForm
 from django.shortcuts import get_object_or_404
 # from django.contrib import auth
 # from django.contrib import messages
+from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import redirect
 # Create your views here.
 
 
@@ -155,3 +156,8 @@ def delete_document_category(request, pk):
     delete.delete()
     delete = DocumentCategory.objects.all()
     return render(request, 'documents/document_add.html', {'delete': delete})
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
