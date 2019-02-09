@@ -15,6 +15,7 @@ def document_list(request):
     document = Documentation.objects.all()
     return render(request, 'documents/document_list.html', context={'document': document})
 
+
 @login_required(login_url='login')
 def document_new(request):
     if request.method == "POST":
@@ -23,7 +24,7 @@ def document_new(request):
             document = form.save(commit=False)
             document.save()
             context = {'added': True}
-            return render(request, 'documents/document_add.html',context)
+            return render(request, 'documents/document_add.html', context)
         else:
             print(form.errors)
 
@@ -33,7 +34,6 @@ def document_new(request):
         doc_category = DocumentCategory.objects.all()
 
         return render(request, 'documents/document_add.html', {'form': form, 'add_category': category, 'add_doc_category': doc_category})
-
 
 
 @login_required(login_url='login')
@@ -51,14 +51,15 @@ def document_edit(request, pk):
             document.save()
             document = Documentation.objects.all()
             context = {'added': True,'document':document}
-            return render(request, 'documents/document_list.html',context)
+            return render(request, 'documents/document_list.html', context)
 
     else:
         form = DocumentationForm(instance=document)
         category1 = Category.objects.all()
         doc_category1 = DocumentCategory.objects.all()
 
-        return render(request, 'documents/document_edit.html',{'document': document,'add_category': category1, 'add_doc_category': doc_category1})
+        return render(request, 'documents/document_edit.html', {'document': document, 'add_category': category1, 'add_doc_category': doc_category1})
+
 
 @login_required(login_url='login')
 def document_delete(request, pk):
@@ -67,13 +68,15 @@ def document_delete(request, pk):
     document = Documentation.objects.all()
     return render(request, 'documents/document_list.html', {'document': document})
 
+
 @login_required(login_url='login')
 def dashboard(request):
     return render(request, 'test.html')
 
+
 @login_required(login_url='login')
 def userList(request):
-    return render(request,'userlist.html')
+    return render(request, 'userlist.html')
 
 
 @login_required(login_url='login')
@@ -81,17 +84,17 @@ def list_category(request):
     document = Category.objects.all()
     return render(request, 'documents/category_list.html', context={'cat_list': document})
 
+
 @login_required(login_url='login')
 def add_category(request):
-    if request.method=="POST":
+    if request.method == "POST":
         form = CategoryForm(request.POST, request.FILES or None)
         if form.is_valid():
             add = form.save(commit=False)
             add.save()
             context = {'catadded': True}
 
-
-            return render(request, 'documents/document_add.html',context)
+            return render(request, 'documents/document_add.html', context)
     else:
         form = CategoryForm()
 
@@ -115,6 +118,7 @@ def add_category(request):
 #
 #     return render(request, 'documents/document_edit.html',{'edit': edit})
 
+
 @login_required(login_url='login')
 def delete_category(request, pk):
     delete = get_object_or_404(Category, pk=pk)
@@ -123,28 +127,27 @@ def delete_category(request, pk):
     return render(request, 'documents/document_add.html', {'delete': delete})
 
 
-
-
 @login_required(login_url='login')
 def list_document_category(request):
     document = DocumentCategory.objects.all()
     return render(request, 'documents/document_category_list.html', context={'doc_list': document})
 
+
 @login_required(login_url='login')
 def add_document_category(request):
-    if request.method=="POST":
+    if request.method == "POST":
         form = DocumentNewForm(request.POST, request.FILES or None)
         if form.is_valid():
             add = form.save(commit=False)
             add.save()
             context = {'cat_added': True}
 
-
-            return render(request, 'documents/document_add.html',context)
+            return render(request, 'documents/document_add.html', context)
     else:
         form = CategoryForm()
 
     return render(request, 'documents/document_category_add.html', {'from': form})
+
 
 @login_required(login_url='login')
 def delete_document_category(request, pk):

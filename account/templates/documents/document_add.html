@@ -14,7 +14,7 @@
         <h3 class="text-center">Add Document</h3>
     </div>
     <div class="section-wrapper form-bg">
-        <form method="POST" name="form" enctype="multipart/form-data" class="form-horizontal" >{% csrf_token %}
+        <form method="POST" name="form"  enctype="multipart/form-data" class="form-horizontal" >{% csrf_token %}
 
             <div class = "form-group">
                 <label for = "id_title" class = "control-label col-sm-2 ">Title*</label>
@@ -110,7 +110,7 @@
           <div class = "form-group">
                 <label for = "id_information" class = "control-label col-sm-2 ">Information*</label>
                 <div class = "col-sm-6 no-outline">
-                <textarea name="information" class="ckeditor" ></textarea>
+                <textarea name="information" id="id_information"  ></textarea>
                 </div>
         </div>
 
@@ -120,7 +120,7 @@
         <div class = "form-group">
 
                 <div class = "col-sm-2 no-outline">
-                    <input type="file" accept="application/pdf" id="id_doc_category" name="document" placeholder="docs">
+                    <input type="file" accept="application/msword" id="id_doc_category" name="document" placeholder="docs">
                 </div>
             </div>
 
@@ -134,12 +134,15 @@
     <script>
 
         function validateForm() {
-            var x = document.forms["form"]["document"].value =="" || document.getElementsByName("information").value=="";
-            if (!x) {
-                alert("Both information and document cannot be empty");
+            var x = document.forms["form"]["information"].value || document.forms["form"]["document"].value;
+            console.log(x);
+            if (x== "") {
+                alert("Both Information and Document can't be empty");
                 return false;
+
             }
-        }</script>
+        }
+    </script>
 {% endblock %}
 
 
