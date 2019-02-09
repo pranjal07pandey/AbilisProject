@@ -8,6 +8,19 @@ from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+
+
+
+
+from rest_framework import viewsets
+from .serializers import *
+
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from django.core import serializers
+import json
+
 # Create your views here.
 
 
@@ -171,3 +184,50 @@ def delete_document_category(request, pk):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+
+#API
+
+# API for User
+class UserList(viewsets.ModelViewSet):
+    queryset = user.objects.all()
+    serializer_class = userSerializer
+
+
+# API for Document Category
+
+class DocumentCategoryList(viewsets.ModelViewSet):
+    queryset = DocumentCategory.objects.all()
+    serializer_class = DocumentCategorySerializer
+
+
+# API for Category List
+
+class categoryList(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = categoryinfoSerializer
+
+
+# API for Documentaion
+class DocumentationList(viewsets.ModelViewSet):
+    queryset = Documentation.objects.all()
+    serializer_class = DocumentationSerializer
+
+
+@csrf_exempt
+def UserLogin(request):
+
+    username = request.POST['username']
+    password = request.POST['password']
+
+    acoountuser = user.objects.filter(username = username , password = password)
+    if acoountuser :
+        mainuser = user.objects.get(username = username)
+        data = serializers.serialize('json', [mainuser, ])
+        struct = json.loads(data)
+        data = json.dumps(struct[0])
+        return HttpResponse(data)
+    else:
+        return HttpResponse("N")
+

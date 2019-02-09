@@ -1,6 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+
 # Create your models here.
+
+
+class user(models.Model):
+    name = models.CharField(max_length=100, default='')
+    username = models.CharField(max_length=100, default='')
+    email = models.EmailField()
+    password = models.CharField(max_length=100 , default='')
 
 
 class DocumentCategory(models.Model):
@@ -19,5 +26,7 @@ class Documentation(models.Model):
     document = models.FileField(upload_to='documents', default='', blank=True)
     description = models.TextField(max_length=500, default='')
     information = models.TextField(max_length=5000, default='', blank=True)
+
+
 
 

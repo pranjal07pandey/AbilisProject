@@ -1,6 +1,12 @@
 
 from .import views
-from django.conf.urls import url
+from django.urls import path
+
+
+from django.conf.urls import url , include
+
+
+
 
 urlpatterns = [
     url(r'^document/$', views.document_list, name='document_list'),
@@ -21,6 +27,11 @@ urlpatterns = [
 
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^userlist/$', views.userList, name='userlist'),
+
+
+
+
+
 
 ]
 
