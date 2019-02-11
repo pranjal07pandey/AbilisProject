@@ -91,7 +91,8 @@ def document_delete(request, pk):
 @login_required(login_url='login')
 def dashboard(request):
     users= user.objects.all()
-    context = {'active_users':users}
+    count = user.objects.all().count()
+    context = {'active_users':users, 'total_users':count}
     return render(request, 'dashboard.html', context)
 
 
