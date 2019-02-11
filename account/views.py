@@ -88,7 +88,7 @@ def document_delete(request, pk):
 
 @login_required(login_url='login')
 def dashboard(request):
-    return render(request, 'test.html')
+    return render(request, 'dashboard.html')
 
 
 @login_required(login_url='login')
@@ -99,7 +99,7 @@ def userList(request):
 @login_required(login_url='login')
 def list_category(request):
     document = Category.objects.all()
-    return render(request, 'documents/category_list.html', context={'cat_list': document})
+    return render(request, 'documents/disable_category/category_list.html', context={'cat_list': document})
 
 
 @login_required(login_url='login')
@@ -118,7 +118,7 @@ def add_category(request):
     else:
         form = CategoryForm()
 
-    return render(request, 'documents/category_add.html', {'from': form})
+    return render(request, 'documents/disable_category/category_add.html', {'from': form})
 
 #
 # def edit_category(request, pk):
@@ -145,13 +145,13 @@ def delete_category(request, pk):
     delete = get_object_or_404(Category, pk=pk)
     delete.delete()
     delete = Category.objects.all()
-    return render(request, 'documents/category_list.html', {'cat_list': delete})
+    return render(request, 'documents/disable_category/category_list.html', {'cat_list': delete})
 
 
 @login_required(login_url='login')
 def list_document_category(request):
     document = DocumentCategory.objects.all()
-    return render(request, 'documents/document_category_list.html', context={'doc_list': document})
+    return render(request, 'documents/document_category/document_category_list.html', context={'doc_list': document})
 
 
 @login_required(login_url='login')
@@ -170,7 +170,7 @@ def add_document_category(request):
     else:
         form = CategoryForm()
 
-    return render(request, 'documents/document_category_add.html', {'from': form})
+    return render(request, 'documents/document_category/document_category_add.html', {'from': form})
 
 
 @login_required(login_url='login')
@@ -178,7 +178,7 @@ def delete_document_category(request, pk):
     delete = get_object_or_404(DocumentCategory, pk=pk)
     delete.delete()
     delete = DocumentCategory.objects.all()
-    return render(request, 'documents/document_category_list.html', {'doc_list': delete})
+    return render(request, 'documents/document_category/document_category_list.html', {'doc_list': delete})
 
 
 def logout_user(request):
