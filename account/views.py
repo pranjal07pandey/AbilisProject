@@ -24,6 +24,8 @@ import json
 # Create your views here.
 
 
+
+
 @login_required(login_url='login')
 def document_list(request):
     document = Documentation.objects.all()
@@ -88,7 +90,9 @@ def document_delete(request, pk):
 
 @login_required(login_url='login')
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    users= user.objects.all()
+    context = {'active_users':users}
+    return render(request, 'dashboard.html', context)
 
 
 @login_required(login_url='login')
