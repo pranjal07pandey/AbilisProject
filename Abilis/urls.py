@@ -35,6 +35,9 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
 
     path('api/Validusers/', views.UserLogin),
+    # path('Documentation/', views.UserLogin),
+
+    url(r'^api/search/(?P<category>.+)/$', views.SearchList.as_view())
 
 
 
