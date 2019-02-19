@@ -251,9 +251,16 @@ def UserLogin(request):
         data = serializers.serialize('json', [mainuser, ])
         struct = json.loads(data)
         data = json.dumps(struct[0])
-        return HttpResponse(data)
+        # data2 = {
+        #
+        #     'error': False,
+        # }
+        # dump = json.dumps(data2)
+
+        return HttpResponse(data, content_type='json', status=200)
+        # return JsonResponse({'error': 'False'}, status=401)
     else:
-        return JsonResponse({'error': 'True'}, status=401)
+        return JsonResponse({'error': True}, status=401)
 
 
 
