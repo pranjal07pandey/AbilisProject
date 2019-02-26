@@ -29,3 +29,7 @@ class DocumentationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class userpullSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = user
+        fields = ('username',)

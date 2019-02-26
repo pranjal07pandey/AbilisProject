@@ -21,6 +21,25 @@ from django.http import HttpResponse
 from django.core import serializers
 import json
 
+
+from django.views import generic
+
+from rest_framework import generics
+# from django.db.models import Q
+from rest_framework.response import Response
+from functools import reduce
+import operator
+from django.db.models import Q
+
+
+from django.http import JsonResponse
+
+
+
+
+
+
+
 # Create your views here.
 
 
@@ -232,7 +251,36 @@ def UserLogin(request):
         data = serializers.serialize('json', [mainuser, ])
         struct = json.loads(data)
         data = json.dumps(struct[0])
-        return HttpResponse(data)
+        # data2 = {
+        #
+        #     'error': False,
+        # }
+        # dump = json.dumps(data2)
+
+        return HttpResponse(data, content_type='json', status=200)
+        # return JsonResponse({'error': 'False'}, status=401)
     else:
-        return HttpResponse("N")
+        return JsonResponse({'error': True}, status=401)
+
+
+
+# API FOR SEARCH (search according to category)
+
+class SearchList(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        user = self.kwargs['category'].lower().split(',')
+        query = reduce(operator.and_, (Q(category__contains=item) for item in user))
+        dirs = Documentation.objects.filter(query)
+        dirs_serializer = DocumentationSerializer(dirs, context={"request": request}, many=True)
+        data = {}
+        data['Category'] = dirs_serializer.data
+        return Response(data)
+
+
+
+#APi FOr Username pull Only
+
+class UsernameonlyList(viewsets.ModelViewSet):
+    queryset = user.objects.all()
+    serializer_class = userpullSerializer
 

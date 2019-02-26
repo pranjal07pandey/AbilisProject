@@ -8,6 +8,7 @@ class user(models.Model):
     username = models.CharField(max_length=100, default='')
     email = models.EmailField()
     password = models.CharField(max_length=100 , default='')
+    error = models.BooleanField(default='False')
 
 
 class DocumentCategory(models.Model):
