@@ -50,10 +50,13 @@
                 <label for="id_new_category" class="control-label col-sm-2 ">Disabled Category*</label>
                 <div class="col-sm-4">
                     <select class="form-control" name="category" id="id_new_category" required>
+
+
                         {% for add_category in add_category %}
 
 
                             <option value="{{ add_category.new_category }}">{{ add_category.new_category }}</option>
+
 
 
                         {% endfor %}
