@@ -23,6 +23,12 @@ urlpatterns = [
     path('', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', views.logout_user, name='logout'),
 
+    path('password-change/', auth_views.PasswordChangeView.as_view(template_name='password_change.html'),
+         name= 'password_change'),
+
+    path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
+         name ='password_change_done'),
+
     path('document/',include('account.urls')),
 
     path('dashboard/',include('account.urls')),
@@ -31,6 +37,8 @@ urlpatterns = [
     path('category/', include('account.urls')),
 
     path('doc_category/', include('account.urls')),
+
+    path('password/', include('account.urls')),
 
     url(r'^api/', include(router.urls)),
 
