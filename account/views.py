@@ -58,11 +58,20 @@ def document_new(request):
         form = DocumentationForm(request.POST, request.FILES or None)
         if form.is_valid():
             document = form.save(commit=False)
+            selected = request.POST.getlist('category')
+            # catlist = ""
+            # for sel in selected:
+            #     catlist += sel + ","
+            # print(catlist)
+            #
             document.save()
+            for cat in selected:
+                category_added = Category.objects.get(new_category=cat)
+                document.category.add(category_added)
+
             category = Category.objects.all()
             doc_category = DocumentCategory.objects.all()
             context = {'added': True, 'add_category': category, 'add_doc_category': doc_category}
-
             return render(request, 'documents/document_add.html', context)
         else:
             print(form.errors)
