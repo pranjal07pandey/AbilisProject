@@ -28,17 +28,17 @@
 
 
                         <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    Action
-                                </button>
-                                <div class="dropdown-menu">
-{#                                    <a class="dropdown-item" href="{% url 'edit_category' pk=catlist.pk %}">Edit</a>#}
-                                    <a class="dropdown-item" href="{% url 'delete_category' pk=cat_list.pk %}"
-                                       onclick="return confirm('Are you sure?')">Delete</a>
+                            <div class="button">
+{#                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"#}
+{#                                        aria-haspopup="true" aria-expanded="false">#}
+{#                                    Action#}
+{#                                </button>#}
+{#                                <button class="btn btn-secondary dropdown-toggle" data-toogle="dropdown" aria-haspopup="true" aria-expanded="false" >#}
 
-                                </div>
+{#                                    <a class="dropdown-item" href="{% url 'edit_category' pk=catlist.pk %}">Edit</a>#}
+                                    <a href="{% url 'delete_category' pk=cat_list.pk %}"
+                                       onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger">Delete</button></a>
+{#                                </button>#}
                             </div>
                         </td>
 
