@@ -58,6 +58,13 @@ def document_new(request):
         form = DocumentationForm(request.POST, request.FILES or None)
         if form.is_valid():
             document = form.save(commit=False)
+            doc = form.cleaned_data['information']
+            file_title = form.cleaned_data['title']
+            cr = open(file_title + '.txt', 'w')
+            cr.write(doc)
+            form.document = cr
+            cr.close()
+
             document.save()
             category = Category.objects.all()
             doc_category = DocumentCategory.objects.all()
@@ -209,6 +216,15 @@ def delete_document_category(request, pk):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+# write into file
+
+# def createFile(request):
+
+
+
+
+
 
 
 
