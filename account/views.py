@@ -65,11 +65,20 @@ def document_new(request):
             form.document = cr
             cr.close()
 
+            selected = request.POST.getlist('category')
+            # catlist = ""
+            # for sel in selected:
+            #     catlist += sel + ","
+            # print(catlist)
+            #
             document.save()
+            for cat in selected:
+                category_added = Category.objects.get(new_category=cat)
+                document.category.add(category_added)
+
             category = Category.objects.all()
             doc_category = DocumentCategory.objects.all()
             context = {'added': True, 'add_category': category, 'add_doc_category': doc_category}
-
             return render(request, 'documents/document_add.html', context)
         else:
             print(form.errors)
@@ -216,15 +225,6 @@ def delete_document_category(request, pk):
 def logout_user(request):
     logout(request)
     return redirect('login')
-
-# write into file
-
-# def createFile(request):
-
-
-
-
-
 
 
 
