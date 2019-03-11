@@ -278,13 +278,15 @@ def UserLogin(request):
 
 class SearchList(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
-        user = self.kwargs['category'].lower().split(',')
-        query = reduce(operator.and_, (Q(category__contains=item) for item in user))
-        dirs = Documentation.objects.filter(query)
-        dirs_serializer = DocumentationSerializer(dirs, context={"request": request}, many=True)
-        data = {}
-        data['Category'] = dirs_serializer.data
-        return Response(data)
+        category = self.kwargs['category'].lower().split(',')
+        # query = reduce(operator.and_, (Q(category__contains=item) for item in user))
+        # dirs = Documentation.objects.filter(query)
+        # dirs_serializer = DocumentationSerializer(dirs, context={"request": request}, many=True)
+        # data = {}
+        # data['Category'] = dirs_serializer.data
+        document_search = Documentation.objects.filter(category__new_category__in=category)
+        dirs_serializer = DocumentationSerializer(document_search, context={"request": request}, many=True)
+        return Response(dirs_serializer)
 
 
 

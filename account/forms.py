@@ -1,5 +1,5 @@
 from django import forms
-from multiselectfield import MultiSelectFormField
+# from multiselectfield import MultiSelectFormField
 
 from .models import Documentation, Category, DocumentCategory
 
