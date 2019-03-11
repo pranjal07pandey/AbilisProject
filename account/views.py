@@ -284,7 +284,7 @@ class SearchList(generics.GenericAPIView):
         # dirs_serializer = DocumentationSerializer(dirs, context={"request": request}, many=True)
         # data = {}
         # data['Category'] = dirs_serializer.data
-        document_search = Documentation.objects.filter(category__new_category__in=category)
+        document_search = Documentation.objects.filter(category__new_category=category)
         dirs_serializer = DocumentationSerializer(document_search, context={"request": request}, many=True)
         return Response(dirs_serializer)
 
