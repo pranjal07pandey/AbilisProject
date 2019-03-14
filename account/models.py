@@ -1,5 +1,5 @@
 from django.db import models
-from multiselectfield import MultiSelectField
+# from multiselectfield import MultiSelectField
 
 # Create your models here.
 
@@ -39,6 +39,7 @@ class Documentation(models.Model):
     document = models.FileField(upload_to='documents', default='', blank=True)
     description = models.TextField(max_length=500, default='')
     information = models.TextField(max_length=5000, default='', blank=True)
+    info_file = models.FileField(upload_to='files', default='', blank=True)
 
 
 

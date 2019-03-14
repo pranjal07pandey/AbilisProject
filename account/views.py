@@ -9,7 +9,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.contrib.auth.forms import PasswordChangeForm
-
+from django.core.files import File
 
 
 
@@ -62,15 +62,12 @@ def document_new(request):
             file_title = form.cleaned_data['title']
             cr = open(file_title + '.txt', 'w')
             cr.write(doc)
-            form.document = cr
             cr.close()
-
+            cr = open(file_title + '.txt', 'r')
+            document.info_file.save('new', File(cr))
+            cr.close()
             selected = request.POST.getlist('category')
-            # catlist = ""
-            # for sel in selected:
-            #     catlist += sel + ","
-            # print(catlist)
-            #
+
             document.save()
             for cat in selected:
                 category_added = Category.objects.get(new_category=cat)

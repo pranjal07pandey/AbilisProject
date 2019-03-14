@@ -1,5 +1,5 @@
 from django import forms
-from multiselectfield import MultiSelectFormField
+# from multiselectfield import MultiSelectFormField
 
 from .models import Documentation, Category, DocumentCategory
 
@@ -8,7 +8,7 @@ from .models import Documentation, Category, DocumentCategory
 class DocumentationForm(forms.ModelForm):
     class Meta:
         model = Documentation
-        fields = ('title', 'date', 'doc_category', 'document', 'description', 'information')
+        fields = ('title', 'date', 'doc_category', 'document', 'description', 'information', 'info_file')
 
 class CategoryForm(forms.ModelForm):
     class Meta:
