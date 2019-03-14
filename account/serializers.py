@@ -24,6 +24,7 @@ class categoryinfoSerializer(serializers.ModelSerializer):
 
 
 class DocumentationSerializer(serializers.ModelSerializer):
+    category = serializers.SlugRelatedField(many=True, read_only=True, slug_field='new_category', allow_null=True)
     class Meta:
         model = Documentation
         fields = '__all__'

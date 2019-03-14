@@ -11,7 +11,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.files import File
 
-
+import os
 
 from rest_framework import viewsets
 from .serializers import *
@@ -35,16 +35,7 @@ from django.db.models import Q
 
 from django.http import JsonResponse
 
-
-
-
-
-
-
 # Create your views here.
-
-
-
 
 @login_required(login_url='login')
 def document_list(request):
@@ -64,8 +55,9 @@ def document_new(request):
             cr.write(doc)
             cr.close()
             cr = open(file_title + '.txt', 'r')
-            document.info_file.save('new', File(cr))
+            document.info_file.save(file_title + '.txt', File(cr))
             cr.close()
+            os.remove(file_title + '.txt')
             selected = request.POST.getlist('category')
 
             document.save()
@@ -288,9 +280,12 @@ class SearchList(generics.GenericAPIView):
         # dirs_serializer = DocumentationSerializer(dirs, context={"request": request}, many=True)
         # data = {}
         # data['Category'] = dirs_serializer.data
-        document_search = Documentation.objects.filter(category__new_category=category)
+        print(category)
+        document_search = Documentation.objects.filter(category__new_category__in=category)
+        print(document_search)
         dirs_serializer = DocumentationSerializer(document_search, context={"request": request}, many=True)
-        return Response(dirs_serializer)
+        return Response(dirs_serializer.data)
+        # return HttpResponse(1)
 
 
 
