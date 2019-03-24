@@ -254,20 +254,19 @@ def UserLogin(request):
     username = request.POST['username']
     password = request.POST['password']
 
-    acoountuser = user.objects.filter(username = username , password = password)
+    acoountuser = user.objects.filter(username =username , password = password)
     if acoountuser :
         mainuser = user.objects.get(username = username)
-        data = serializers.serialize('json', [mainuser, ])
-        struct = json.loads(data)
-        data = json.dumps(struct[0])
-        # data2 = {
-        #
-        #     'error': False,
-        # }
-        # dump = json.dumps(data2)
 
-        return HttpResponse(data, content_type='json', status=200)
+        # data = serializers.serialize('json', [mainuser, ])
+        #
+        # struct = json.loads(data)
+        # data = json.dumps(struct[0])
+        # return HttpResponse(data, content_type='json', status=200)
         # return JsonResponse({'error': 'False'}, status=401)
+
+        data = userSerializer(mainuser)
+        return JsonResponse(data.data, status=201)
     else:
         return JsonResponse({'error': True}, status=401)
 
@@ -310,9 +309,9 @@ class SearchList(generics.GenericAPIView):
         # return HttpResponse(1)
 
 @csrf_exempt
-def get_user_question(request, name):
+def get_user_question(request, id):
     if request.method == 'GET':
-        questions = Form_question.objects.filter(user__username=name)
+        questions = Form_question.objects.filter(user=id)
         ques = ForumQuestionSerializer(questions, many=True)
         return JsonResponse(ques.data, status=202, safe=False)
 
