@@ -43,5 +43,15 @@ class Documentation(models.Model):
     info_file = models.FileField(upload_to='files', default='', blank=True)
 
 
+class Form_question(models.Model):
+    question = models.CharField(max_length=250)
+
+
+class Form_answer(models.Model):
+    answer = models.CharField(max_length=240)
+    question = models.ForeignKey(Form_question, on_delete=models.CASCADE)
+
+
+
 
 

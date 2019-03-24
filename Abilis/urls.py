@@ -16,7 +16,7 @@ router.register(r'users', views.UserList)
 router.register(r'Dcategory', views.DocumentCategoryList)
 router.register(r'subcategory', views.categoryList)
 router.register(r'documentation',views.DocumentationList)
-
+router.register(r'forum_question', views.QuestionList)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

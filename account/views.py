@@ -244,6 +244,10 @@ class DocumentationList(viewsets.ModelViewSet):
     queryset = Documentation.objects.all()
     serializer_class = DocumentationSerializer
 
+class QuestionList(viewsets.ModelViewSet):
+    queryset = Form_question.objects.all()
+    serializer_class = ForumQuestionSerializer
+
 
 @csrf_exempt
 def UserLogin(request):

@@ -34,3 +34,8 @@ class userpullSerializer(serializers.ModelSerializer):
     class Meta:
         model = user
         fields = ('username',)
+
+class ForumQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Form_question
+        fields = "__all__"

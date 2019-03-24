@@ -28,12 +28,6 @@ urlpatterns = [
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^userlist/$', views.userList, name='userlist'),
 
-
-
-
-
-
-
 ]
 
 
