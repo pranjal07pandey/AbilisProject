@@ -309,6 +309,15 @@ class SearchList(generics.GenericAPIView):
         return Response(dirs_serializer.data)
         # return HttpResponse(1)
 
+@csrf_exempt
+def get_user_question(request, id):
+    if request.method == 'GET':
+        questions = Form_question.objects.filter(user=id)
+        ques = ForumQuestionSerializer(questions, many=True)
+        return JsonResponse(ques.data, status=202, safe=False)
+
+    else:
+        return HttpResponse("Not Authorized", status=300)
 
 
 #APi FOr Username pull Only

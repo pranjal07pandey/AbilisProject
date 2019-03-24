@@ -24,7 +24,8 @@ urlpatterns = [
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^userlist/$', views.userList, name='userlist'),
     path('question_list/', views.question_list, name='question_list'),
-    path('question_answer/<int:id>/', views.question_answer, name='question_answer')
+    path('question_answer/<int:id>/', views.question_answer, name='question_answer'),
+    path('user_question_list/<int:id>/', views.get_user_question, name='user_question_list')
 ]
 
 
