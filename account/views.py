@@ -310,9 +310,9 @@ class SearchList(generics.GenericAPIView):
         # return HttpResponse(1)
 
 @csrf_exempt
-def get_user_question(request, id):
+def get_user_question(request, name):
     if request.method == 'GET':
-        questions = Form_question.objects.filter(user=id)
+        questions = Form_question.objects.filter(user__username=name)
         ques = ForumQuestionSerializer(questions, many=True)
         return JsonResponse(ques.data, status=202, safe=False)
 
