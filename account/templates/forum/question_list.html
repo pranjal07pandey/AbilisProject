@@ -1,0 +1,54 @@
+{% extends 'home.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+<div id="page-content-wrapper">
+    <div class="section-wrapper">
+        <h3 class="text-center"> Question List</h3>
+    </div>
+    <div class="section-wrapper">
+        <table class="table table-responsive">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+{#                <th>Description</th>#}
+                <th>Action</th>
+            </tr>
+            </thead>
+
+                {% for question in questions %}
+
+                    <tbody>
+                    <tr>
+                        <td>{{ question.question }}</td>
+                        <td>{{ question.date }}</td>
+
+
+
+                        <td>
+{##}
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary" data-toggle="dropdown">
+                                    Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{% url 'question_answer' id=question.pk %}" >Answer</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+                    </tbody>
+
+                {% endfor %}
+
+        </table>
+
+</div>
+</div>
+
+{% endblock %}

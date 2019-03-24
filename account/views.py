@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-from .forms import DocumentationForm, CategoryForm, DocumentNewForm
+from .forms import DocumentationForm, CategoryForm, DocumentNewForm, AnswerForm
 from django.shortcuts import get_object_or_404
 # from django.contrib import auth
 # from django.contrib import messages
@@ -251,7 +251,6 @@ class QuestionList(viewsets.ModelViewSet):
 
 @csrf_exempt
 def UserLogin(request):
-
     username = request.POST['username']
     password = request.POST['password']
 
@@ -273,8 +272,27 @@ def UserLogin(request):
         return JsonResponse({'error': True}, status=401)
 
 
+def question_list(request):
+    if request.method == 'POST':
+        return HttpResponse('Not Authorized')
+    else:
+        questions = Form_question.objects.all().order_by('-id')
+        return render(request, 'forum/question_list.html', context={'questions': questions})
 
-# API FOR SEARCH (search according to category)
+
+@login_required
+def question_answer(request, id):
+    question  = Form_question.objects.get(id=id)
+    answer = AnswerForm()
+    if request.method == 'POST':
+        answer = AnswerForm(request.POST)
+        ans = answer.save(commit=False)
+        ans.question = question
+        ans.save()
+        return HttpResponse(1)
+    else:
+        return render(request, 'forum/question_answer.html', context={'question': question, 'answer_forum': answer})
+
 
 class SearchList(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):

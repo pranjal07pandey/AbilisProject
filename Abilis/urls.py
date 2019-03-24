@@ -30,7 +30,6 @@ urlpatterns = [
          name ='password_change_done'),
 
     path('document/',include('account.urls')),
-
     path('dashboard/',include('account.urls')),
     path('userlist/', include('account.urls')),
 
@@ -39,7 +38,7 @@ urlpatterns = [
     path('doc_category/', include('account.urls')),
 
     path('password/', include('account.urls')),
-
+    path('forum/', include('account.urls')),
     url(r'^api/', include(router.urls)),
 
     path('api/Validusers/', views.UserLogin),

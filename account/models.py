@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 #from multiselectfield import MultiSelectField
 # from multiselectfield import MultiSelectField
 
@@ -45,6 +47,10 @@ class Documentation(models.Model):
 
 class Form_question(models.Model):
     question = models.CharField(max_length=250)
+    date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return self.question
 
 
 class Form_answer(models.Model):

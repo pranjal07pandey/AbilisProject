@@ -63,6 +63,16 @@
                         <li class="in-menu" ><a href="{% url 'document_list' %}"><i class="fa fa-fw fa-list"></i> List </a></li>
                     </ul>
                 </li>
+                <li  style="">
+                    <a href="#" class="sub-menu" id="forum">
+                        <i class="icon_desktop"></i>
+                        <span><i class="fa fa-comments "></i> Forum</span>
+                        <span class="fa fa-angle-down pull-right"></span>
+                    </a>
+                    <ul class="sub-report" id="forum-list" style="list-style-type:none">
+                        <li class="in-menu"><a href="{% url 'question_list' %}"><i class="fa fa-fw fa-plus"></i> Answer Questions </a></li>
+                    </ul>
+                </li>
              </ul>
     </div>
 
@@ -118,6 +128,10 @@
 
             $('#customize').click(function () {
                 $('#customize-list').slideToggle();
+            });
+
+            $('#forum').click(function () {
+                $('#forum-list').slideToggle();
             });
 
         });

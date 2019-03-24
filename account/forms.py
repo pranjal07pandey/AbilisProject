@@ -1,7 +1,7 @@
 from django import forms
 # from multiselectfield import MultiSelectFormField
 
-from .models import Documentation, Category, DocumentCategory
+from .models import Documentation, Category, DocumentCategory, Form_answer
 
 
 
@@ -21,5 +21,10 @@ class DocumentNewForm(forms.ModelForm):
         model = DocumentCategory
         fields = ('doc_category',)
 
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Form_answer
+        fields = ('answer', )
 
 
