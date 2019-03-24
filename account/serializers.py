@@ -25,17 +25,21 @@ class categoryinfoSerializer(serializers.ModelSerializer):
 
 class DocumentationSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(many=True, read_only=True, slug_field='new_category', allow_null=True)
+
     class Meta:
         model = Documentation
         fields = '__all__'
 
 
 class userpullSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = user
         fields = ('username',)
 
+
 class ForumQuestionSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Form_question
-        fields = ("question", )
+        fields = ("question", 'date')

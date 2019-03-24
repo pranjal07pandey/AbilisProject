@@ -21,6 +21,7 @@ class DocumentCategory(models.Model):
     def __str__(self):
         return self.doc_category
 
+
 class Category(models.Model):
     new_category = models.CharField(max_length=200, default='')
 
@@ -47,7 +48,7 @@ class Documentation(models.Model):
 
 class Form_question(models.Model):
     question = models.CharField(max_length=250)
-    date = models.DateField(default=timezone.now)
+    date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.question
