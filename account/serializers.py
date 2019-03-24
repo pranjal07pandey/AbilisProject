@@ -42,4 +42,4 @@ class ForumQuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Form_question
-        fields = ("question", 'date')
+        fields = ("user", "question", 'date')

@@ -47,6 +47,7 @@ class Documentation(models.Model):
 
 
 class Form_question(models.Model):
+    user = models.ForeignKey(user, on_delete=models.CASCADE)
     question = models.CharField(max_length=250)
     date = models.DateTimeField(default=timezone.now)
 
