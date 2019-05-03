@@ -301,7 +301,7 @@ def question_answer(request, id):
         device = FCMDevice()
         device.registration_id = question.user.registration_id
         device.save()
-        print(device.send_message(title="Title of shreyansh", body="Message", data={"question_id": id}))
+        print(device.send_message(title="Abilis Question Answered", body="Your Question has been answered", data={"question_id": id}))
         # print(device.registration_id)
         # print(question.user.registration_id)
         # print(question.user.id)
@@ -370,6 +370,7 @@ def question_answer_list(request):
 def answer_list(request):
     if request.method == "GET":
         answer = Form_answer.objects.all()
+        print(answer)
         return render(request, 'forum/answer_list.html', context={"answer": answer})
     else:
         return HttpResponse("Not Authorized", status=300)
