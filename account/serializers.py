@@ -43,3 +43,22 @@ class ForumQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Form_question
         fields = ("user", "question", 'date')
+
+
+class AnswerSerializer(serializers.ModelSerializer):
+    question = serializers.SlugRelatedField(queryset=Form_question.objects.all(), slug_field='question')
+    class Meta:
+        model = Form_answer
+        fields = '__all__'
+
+class QuestionSerializer(serializers.ModelSerializer):
+    user  = serializers.SlugRelatedField(queryset=user.objects.all(), slug_field='name')
+    class Meta:
+        model = Form_question
+        fields = ('question', 'user')
+
+class AllAnswerSerializer(serializers.ModelSerializer):
+    question = QuestionSerializer()
+    class Meta:
+        model = Form_answer
+        fields = ('question', 'answer')

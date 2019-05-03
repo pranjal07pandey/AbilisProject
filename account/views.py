@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.files import File
+from fcm_django.models import FCMDevice
 
 import os
 
@@ -288,6 +289,15 @@ def question_answer(request, id):
         ans = answer.save(commit=False)
         ans.question = question
         ans.save()
+        print(ans)
+        device = FCMDevice()
+        device.registration_id = question.user.registration_id
+        device.save()
+        print(device.send_message(title="Title of shreyansh", body="Message", data={"question_id": id}))
+        # print(device.registration_id)
+        # print(question.user.registration_id)
+        # print(question.user.id)
+        ans.save()
         return HttpResponse(1)
     else:
         return render(request, 'forum/question_answer.html', context={'question': question, 'answer_forum': answer})
@@ -320,10 +330,30 @@ def get_user_question(request, id):
 
 
 #APi FOr Username pull Only
-
 class UsernameonlyList(viewsets.ModelViewSet):
     queryset = user.objects.all()
     serializer_class = userpullSerializer
 
 
+def get_answer_list(request, id):
+    if request.method == "GET":
+        form_answer = Form_answer.objects.filter(question__id = id).order_by("-id")
+        ans = AnswerSerializer(form_answer, many=True)
+        return JsonResponse(ans.data, status=202, safe=False)
 
+def get_user_question_answer(request, id):
+    if request.method == 'GET':
+        questions_ans = Form_answer.objects.filter(question__user__id=id)
+        ques = AnswerSerializer(questions_ans, many=True)
+        return JsonResponse(ques.data, status=202, safe=False)
+    else:
+        return HttpResponse("Not Authorized", status=300)
+
+
+def question_answer_list(request):
+    if request.method == "GET":
+        answer_question = Form_answer.objects.all()
+        answer = AllAnswerSerializer(answer_question, many=True)
+        return JsonResponse(answer.data, status=202, safe=False)
+    else:
+        return HttpResponse("Not Authorized", status=300)

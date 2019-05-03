@@ -13,6 +13,7 @@ class user(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=100 , default='')
     error = models.BooleanField(default='False')
+    registration_id = models.CharField(max_length=1000)
 
 
 class DocumentCategory(models.Model):
