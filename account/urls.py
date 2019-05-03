@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^userlist/$', views.userList, name='userlist'),
     path('question_list/', views.question_list, name='question_list'),
     path('question_answer/<int:id>/', views.question_answer, name='question_answer'),
+    path('question_delete/<int:id>/', views.question_delete, name='question_delete'),
 
 ]
 

@@ -345,8 +345,8 @@ class UsernameonlyList(viewsets.ModelViewSet):
 
 def get_answer_list(request, id):
     if request.method == "GET":
-        form_answer = Form_answer.objects.filter(question__id = id).order_by("-id")
-        ans = AnswerSerializer(form_answer, many=True)
+        form_answer = Form_answer.objects.filter(question__id = id).order_by("-id").first()
+        ans = AnswerSerializer(form_answer)
         return JsonResponse(ans.data, status=202, safe=False)
 
 def get_user_question_answer(request, id):
@@ -374,3 +374,10 @@ def answer_list(request):
         return render(request, 'forum/answer_list.html', context={"answer": answer})
     else:
         return HttpResponse("Not Authorized", status=300)
+
+@login_required
+def question_delete(request, id):
+    if request.method == "GET":
+        answer = Form_question.objects.get(id=id)
+        answer.delete()
+        return redirect('question_list')
