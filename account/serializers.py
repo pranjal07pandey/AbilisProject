@@ -55,7 +55,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     user  = serializers.SlugRelatedField(queryset=user.objects.all(), slug_field='name')
     class Meta:
         model = Form_question
-        fields = ('question', 'user')
+        fields = ('id','question', 'user')
 
 class AllAnswerSerializer(serializers.ModelSerializer):
     question = QuestionSerializer()

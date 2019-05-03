@@ -46,7 +46,9 @@ urlpatterns = [
     url(r'^api/search/(?P<category>.+)/$', views.SearchList.as_view()),
     path('api/user_question_list/<int:id>/', views.get_user_question, name='user_question_list'),
     path('api/answer_list/<int:id>/', views.get_answer_list, name="get_answer_list"),
-    path('api/question_answer_list/', views.question_answer_list, name='question_list'),
+    path('api/question_answer_list/', views.question_answer_list),
+    path('api/question_list/', views.api_question_list),
+
 ]
 
 if settings.DEBUG:

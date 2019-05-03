@@ -279,6 +279,14 @@ def question_list(request):
         questions = Form_question.objects.all().order_by('-id')
         return render(request, 'forum/question_list.html', context={'questions': questions})
 
+def api_question_list(request):
+    if request.method == 'POST':
+        return HttpResponse('Not Authorized')
+    else:
+        questions = Form_question.objects.all().order_by('-id')
+        question = QuestionSerializer(questions, many=True)
+        return JsonResponse(question.data, safe=False)
+
 
 @login_required
 def question_answer(request, id):
@@ -298,7 +306,7 @@ def question_answer(request, id):
         # print(question.user.registration_id)
         # print(question.user.id)
         ans.save()
-        return HttpResponse(1)
+        return redirect('dashboard')
     else:
         return render(request, 'forum/question_answer.html', context={'question': question, 'answer_forum': answer})
 
