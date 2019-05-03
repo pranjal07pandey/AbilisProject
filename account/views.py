@@ -369,7 +369,7 @@ def question_answer_list(request):
 
 def answer_list(request):
     if request.method == "GET":
-        answer = Form_answer.objects.all()
+        answer = Form_answer.objects.all().order_by('-id')
         print(answer)
         return render(request, 'forum/answer_list.html', context={"answer": answer})
     else:
