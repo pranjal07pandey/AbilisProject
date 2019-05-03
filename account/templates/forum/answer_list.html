@@ -1,0 +1,32 @@
+{% extends 'home.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div id="page-content-wrapper">
+    <div class="section-wrapper">
+        <h3 class="text-center"> Answer List</h3>
+    </div>
+    <div class="section-wrapper">
+        <table class="table table-responsive">
+            <thead>
+            <tr>
+                <th>Question</th>
+                <th>Answer</th>
+            </tr>
+            </thead>
+
+                {% for ans in answer %}
+
+                    <tbody>
+                    <tr>
+                        <td>{{ answer.question }}</td>
+                        <td>{{ answer.answer }}</td>
+                    </tr>
+                    </tbody>
+
+                {% endfor %}
+        </table>
+</div>
+</div>
+
+{% endblock %}

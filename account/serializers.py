@@ -42,7 +42,7 @@ class ForumQuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Form_question
-        fields = ("user", "question", 'date')
+        fields = ("id", "user", "question", 'date')
 
 
 class AnswerSerializer(serializers.ModelSerializer):

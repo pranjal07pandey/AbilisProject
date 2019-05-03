@@ -365,3 +365,11 @@ def question_answer_list(request):
         return JsonResponse(answer.data, status=202, safe=False)
     else:
         return HttpResponse("Not Authorized", status=300)
+
+
+def answer_list(request):
+    if request.method == "GET":
+        answer = Form_answer.objects.all()
+        return render(request, 'forum/answer_list.html', context={"answer": answer})
+    else:
+        return HttpResponse("Not Authorized", status=300)
