@@ -12,6 +12,7 @@
             <tr>
                 <th>Question</th>
                 <th>Answer</th>
+                <th>Action</th>
             </tr>
             </thead>
 
@@ -21,11 +22,46 @@
                     <tr>
                         <td>{{ ans.question }}</td>
                         <td>{{ ans.answer }}</td>
+
+                        <td>
+                            <div class="button">
+
+                                    <a class="dropdown-item" href="{% url 'answer_delete' id=ans.pk %}"
+                                       onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger">Delete</button></a>
+
+                                </div>
+
+                        </td>
+
                     </tr>
                     </tbody>
 
                 {% endfor %}
         </table>
+
+
+{% if answer.has_other_pages %}
+  <ul class="pagination">
+    {% if answer.has_previous %}
+      <li><a href="?page={{ answer.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in answer.paginator.page_range %}
+      {% if answer.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if answer.has_next %}
+      <li><a href="?page={{ answer.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
 </div>
 </div>
 

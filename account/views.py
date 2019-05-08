@@ -33,6 +33,11 @@ from functools import reduce
 import operator
 from django.db.models import Q
 
+# Pagination
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
 
 from django.http import JsonResponse
 
@@ -41,7 +46,19 @@ from django.http import JsonResponse
 @login_required(login_url='login')
 def document_list(request):
     document = Documentation.objects.all()
-    return render(request, 'documents/document_list.html', context={'document': document})
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(document, 10)
+
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+
+    return render(request, 'documents/document_list.html', context={'document': users})
 
 
 @login_required(login_url='login')
@@ -116,7 +133,19 @@ def document_delete(request, pk):
 
 @login_required(login_url='login')
 def dashboard(request):
-    users= user.objects.all()
+    users1 = user.objects.all()
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(users1, 10)
+
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+
     count = user.objects.all().count()
     context = {'active_users':users, 'total_users':count}
     return render(request, 'dashboard.html', context)
@@ -130,7 +159,19 @@ def userList(request):
 @login_required(login_url='login')
 def list_category(request):
     document = Category.objects.all()
-    return render(request, 'documents/disable_category/category_list.html', context={'cat_list': document})
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(document, 10)
+
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+
+    return render(request, 'documents/disable_category/category_list.html', context={'cat_list': users})
 
 
 @login_required(login_url='login')
@@ -182,7 +223,19 @@ def delete_category(request, pk):
 @login_required(login_url='login')
 def list_document_category(request):
     document = DocumentCategory.objects.all()
-    return render(request, 'documents/document_category/document_category_list.html', context={'doc_list': document})
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(document, 10)
+
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+
+    return render(request, 'documents/document_category/document_category_list.html', context={'doc_list': users})
 
 
 @login_required(login_url='login')
@@ -277,7 +330,19 @@ def question_list(request):
         return HttpResponse('Not Authorized')
     else:
         questions = Form_question.objects.all().order_by('-id')
-        return render(request, 'forum/question_list.html', context={'questions': questions})
+
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(questions, 10)
+
+        try:
+            users = paginator.page(page)
+        except PageNotAnInteger:
+            users = paginator.page(1)
+        except EmptyPage:
+            users = paginator.page(paginator.num_pages)
+
+        return render(request, 'forum/question_list.html', context={'questions': users})
 
 def api_question_list(request):
     if request.method == 'POST':
@@ -370,8 +435,18 @@ def question_answer_list(request):
 def answer_list(request):
     if request.method == "GET":
         answer = Form_answer.objects.all().order_by('-id')
-        print(answer)
-        return render(request, 'forum/answer_list.html', context={"answer": answer})
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(answer, 10)
+
+        try:
+            users = paginator.page(page)
+        except PageNotAnInteger:
+            users = paginator.page(1)
+        except EmptyPage:
+            users = paginator.page(paginator.num_pages)
+
+        return render(request, 'forum/answer_list.html', context={"answer": users})
     else:
         return HttpResponse("Not Authorized", status=300)
 
@@ -381,3 +456,11 @@ def question_delete(request, id):
         answer = Form_question.objects.get(id=id)
         answer.delete()
         return redirect('question_list')
+
+@login_required
+def answer_delete(request, id):
+    if request.method == "GET":
+        answer= Form_answer.objects.get(id=id)
+        answer.delete()
+        return redirect('answer_list')
+
