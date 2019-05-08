@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'rest_framework',
+    'fcm_django',
 ]
 
 MIDDLEWARE = [
@@ -78,9 +79,9 @@ WSGI_APPLICATION = 'Abilis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'abilis1',
-        'USER': '',
-        'PASSWORD': '',
+        'NAME': 'abilis',
+        'USER': 'postgres',
+        'PASSWORD': 'test123',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -130,3 +131,22 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL ='dashboard'
+
+
+
+
+FCM_DJANGO_SETTINGS = {
+"FCM_SERVER_KEY": "AAAAaz1RjR8:APA91bGDkW0PD_BDndoyVyP9MHY_uRIWEfel8eTzCG-SSTuGSn7KR8FlEgsJB7g_5zPeC8oyipTIy4NsN8Ph8Iedm9-bdFVzlOknJ5XR7OM1vPXwx1uDarO4MTR4pnJwofxaniPR63KX",
+"ONE_DEVICE_PER_USER": False,
+"DELETE_INACTIVE_DEVICES": False,
+}
+
+#
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'grand.kusal.kb@gmail.com'
+# EMAIL_HOST_PASSWORD = 'grandprime'
+# EMAIL_USE_TLS = True
+# # EMAIL_USE_SSL = False
+# ACCOUNT_EMAIL_VERIFICATION     = 'none'
