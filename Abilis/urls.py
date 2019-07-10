@@ -48,7 +48,8 @@ urlpatterns = [
     path('api/answer_list/<int:id>/', views.get_answer_list, name="get_answer_list"),
     path('api/question_answer_list/', views.question_answer_list),
     path('api/question_list/', views.api_question_list),
-    path('answer_list_dashboard/', views.answer_list, name="answer_list_dashboard")
+    path('answer_list_dashboard/', views.answer_list, name="answer_list_dashboard"),
+    url(r'^api/searchall/(?P<category>.+)/$', views.SearchListAll.as_view()),
 
 ]
 

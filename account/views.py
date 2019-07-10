@@ -391,6 +391,50 @@ class SearchList(generics.GenericAPIView):
         return Response(dirs_serializer.data)
         # return HttpResponse(1)
 
+class SearchListAll(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        tags = self.kwargs['category'].lower().split(',')
+
+        document_search = Documentation.objects.filter(category__new_category__in=tags)
+        doc_category = Documentation.objects.filter(doc_category__in=tags)
+        title = Documentation.objects.filter(title__in=tags)
+
+        # data = {}
+
+        if document_search.count() > 0:
+            dirs_serializer1 = DocumentationSerializer(document_search, context={"request": request}, many=True)
+            # data['category'] = dirs_serializer1.data
+            return Response(dirs_serializer1.data)
+
+        elif doc_category.count() > 0:
+            dirs_serializer2 = DocumentationSerializer(doc_category, context={"request": request}, many=True)
+            # data['doc_category'] = dirs_serializer2.data
+            return Response(dirs_serializer2.data)
+
+        elif title.count() > 0:
+            dirs_serializer3 = DocumentationSerializer(title, context={"request": request}, many=True)
+            # data['title'] = dirs_serializer3.data
+            return Response(dirs_serializer3.data)
+
+        else:
+            return JsonResponse({'error':1})
+
+
+        #
+        # # dirs_serializer2 = DocumentationSerializer(doc_category, context={"request": request}, many=True)
+        # # dirs_serializer3 = DocumentationSerializer(title, context={"request": request}, many=True)
+        #
+        #
+        # data = {}
+        #
+        #
+        # data['partner'] = dirs_serializer1.data
+        # # data['event'] = dirs_serializer2.data
+        # # data['shop'] = dirs_serializer3.data
+        # # data['promotion'] = promotion_serializer.data
+        # # response = dirs_serializer1.data + dirs_serializer2.data + dir_serializer3.data
+        # return Response(data)
+
 @csrf_exempt
 def get_user_question(request, id):
     if request.method == 'GET':
